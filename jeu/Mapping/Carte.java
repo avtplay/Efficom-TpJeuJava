@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package Mapping;
 
 import java.util.ArrayList;
@@ -28,9 +26,6 @@ public class Carte {
 		this.nbSpawn = 3;
 		
 		this.cell = new Cellule[this.largeur][this.longueur];
-		//for(int i = 0; i < this.largeur; i++)
-		//	for(int j = 0; j < this.longueur; j++)
-			
 		
 		this.listsZoneMap.add(new Zone(MapZone.FORET, this.largeur, this.longueur));
 		
@@ -69,11 +64,13 @@ public class Carte {
 		}
 		
 		int cpt = 0;
-		while(cpt < this.nbSpawn)
+		while(cpt < this.nbSpawn) {
 		for(int i = 0; i < this.largeur; i++) {
 			for(int j = 0; j < this.longueur; j++) {
 				this.cell[i][j].setSpawnCase(this.spanwCoordinate[cpt].equalCoordinate(i, j));
 			}
+		}
+		cpt++;
 		}
 	
 	}
@@ -96,6 +93,26 @@ public class Carte {
 			
 			System.out.println();
 		}
+	}
+	
+	public void displayCellGamer(Cellule cellJ, boolean jumelle) {
+		int vision = 1;
+		
+		if(jumelle) {
+			vision = 2;
+		}
+		
+		for(int i = cellJ.getX()-vision; i <= cellJ.getX()+vision; i++) {
+			for(int j = cellJ.getY()-vision; j <= cellJ.getY()+vision; j++) {
+				if(i >= 0 && j >= 0 && i < this.largeur && j <= this.longueur) {
+					this.cell[i][j].displayCellule();
+				}
+			}
+		}
+	}
+	
+	public void ajouterMonstre() {
+		
 	}
 
 	public int getLargeur() {

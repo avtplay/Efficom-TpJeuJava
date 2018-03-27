@@ -16,7 +16,7 @@ import Entite.EntiteVivante.Personnage;
 public class Cellule {
 	private int x;
 	private int y;
-	public MapZone mapZone = null;
+	public MapZone mapZone = MapZone.FORET;
 	private boolean objectifPresent = false;
 	private boolean spawnCase = false;
 	private ArrayList<Objet> listObjet = new ArrayList<Objet>();
@@ -75,6 +75,49 @@ public class Cellule {
 		this.x = x;
 		this.y = y;
 		this.mapZone = mapZone;
+	}
+	
+	public void displayCellule() {
+		System.out.print("|");
+		for(int i = 0; i < 20; i++)
+			System.out.print("--");
+		System.out.println("|");
+		
+		System.out.print("|");
+		for(int i = 0; i < 20; i++)
+			System.out.print(this.mapZone.getRepresentation());
+		System.out.println("|");
+		
+		System.out.print("|");
+		for(int i = 0; i < 20; i++)
+			System.out.print(this.mapZone.getRepresentation());
+		System.out.println("|");
+		
+		System.out.print("|");
+		for(int i =  0; i < this.listObjet.size(); i++)
+			System.out.print(this.listObjet.get(i)+"\t");
+		System.out.println("|");
+		
+		System.out.print("|");
+		for(int i =  0; i < this.listPersonnage.size(); i++)
+			System.out.print(this.listPersonnage.get(i)+ "\t");
+		System.out.println("|");
+		
+		System.out.print("|");
+		for(int i = 0; i < 20; i++)
+			System.out.print(this.mapZone.getRepresentation());
+		System.out.println("|");
+		
+		System.out.print("|");
+		for(int i = 0; i < 20; i++)
+			System.out.print(this.mapZone.getRepresentation());
+		System.out.println("|");
+		
+		System.out.print("|");
+		for(int i = 0; i < 20; i++)
+			System.out.print("--");
+		System.out.println("|");
+		
 	}
 	
 	public int getX() {

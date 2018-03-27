@@ -50,7 +50,7 @@ public abstract class Entite {
 		return this.estEnVie() ;
 	}
 	
-	boolean ajouterEnergie (int plus) {
+	protected boolean ajouterEnergie (int plus) {
 		if(this.getEnergie() == this.getMaxEnergie() )
 			return false;
 		int energie = this.getEnergie();
@@ -62,8 +62,4 @@ public abstract class Entite {
 		return true;
 	}
 	
-	
-	public abstract void recevoirDmg(int dmg);
-	
-	public abstract void recevoirHeal(int heal);
 }

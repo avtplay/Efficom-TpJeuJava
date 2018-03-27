@@ -8,17 +8,27 @@ package Mapping;
  *
  */
 public enum MapZone {
-	FORET(0, "FOR"),
-	MONTAGNE(1, "MON"),
-	MER(2, "MER"),
-	PLAINE(3, "PLA");
+	FORET(0, "FOR", "**"),
+	MONTAGNE(1, "MON", "^^"),
+	MER(2, "MER","§§"),
+	PLAINE(3, "PLA", "==");
 	
 	private int id;
 	private String tag;
+	private String representation;
 	
-	MapZone(int id, String tag) {
+	MapZone(int id, String tag, String representation) {
 		this.id = id;
 		this.tag = tag;
+		this.representation = representation;
+	}
+
+	public String getRepresentation() {
+		return representation;
+	}
+
+	public void setRepresentation(String representation) {
+		this.representation = representation;
 	}
 
 	public String getTag() {

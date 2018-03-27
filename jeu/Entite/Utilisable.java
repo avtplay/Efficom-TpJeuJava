@@ -2,5 +2,5 @@ package Entite;
 
 public interface Utilisable {
 
-	public void utiliser(Entite e);
+	public void utiliser(combattant e);
 }

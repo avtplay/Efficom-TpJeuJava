@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import Entite.Deplacable;
 import Entite.Entite;
 import Entite.Objet;
+import Entite.combattant;
 import Mapping.Cellule;
 
-public class Personnage extends Entite implements Deplacable{
+public class Personnage extends Entite implements Deplacable, combattant{
 
 	int poidTotal; 
 	int poidMax;
