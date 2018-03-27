@@ -8,6 +8,7 @@ import java.util.*;
 import Entite.objet.*;
 import Entite.EntiteVivante.Entite;
 import Entite.EntiteVivante.Personnage;
+import Entite.Vehicule.EnumVehicule;
 import Entite.Vehicule.Vehicule;
 
 /**
@@ -22,12 +23,13 @@ public class Cellule {
 	private boolean spawnCase = false;
 	private ArrayList<Objet> listObjet = new ArrayList<Objet>();
 	private ArrayList<Entite> listPersonnage = new ArrayList<Entite>();
-	private ArrayList<Vehicule> vehicule = new ArrayList<Vehicule>();
-	public ArrayList<Vehicule> getVehicule() {
+	private ArrayList<EnumVehicule> vehicule = new ArrayList<EnumVehicule>();
+	
+	public ArrayList<EnumVehicule> getVehicule() {
 		return vehicule;
 	}
 
-	public void setVehicule(ArrayList<Vehicule> vehicule) {
+	public void setVehicule(ArrayList<EnumVehicule> vehicule) {
 		this.vehicule = vehicule;
 	}
 	private int or = 0;
@@ -141,12 +143,15 @@ public class Cellule {
 	public int getX() {
 		return x;
 	}
+	
 	public void setX(int x) {
 		this.x = x;
 	}
+	
 	public int getY() {
 		return y;
 	}
+	
 	public void setY(int y) {
 		this.y = y;
 	}
