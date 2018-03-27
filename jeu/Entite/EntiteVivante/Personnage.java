@@ -2,16 +2,15 @@ package Entite.EntiteVivante;
 
 import java.util.ArrayList;
 
+import Entite.Deplacable;
 import Entite.Entite;
 import Entite.Objet;
 import Mapping.Cellule;
 
-public class Personnage extends Entite{
+public class Personnage extends Entite implements Deplacable{
 
 	int poidTotal; 
 	int poidMax;
-	int maxEnergie;
-	int energie;
 	int bourse;
 	
 	
@@ -23,8 +22,8 @@ public class Personnage extends Entite{
 		if (n.length !=0  && n[0]!="") {
 			na = n[0];
 		}
-		energie = 1000;
-		maxEnergie = energie;
+		this.setEnergie(1000);
+		this.setMaxEnergie(1000);
 		poidTotal = 0;
 		poidMax = 10;
 		bourse = 100;
@@ -48,24 +47,27 @@ public class Personnage extends Entite{
 		inventaire.remove(index);
 	}
 	
-	boolean  retirerEnergie (int minus) {
-		energie = energie-minus;
-		return energie <= 0 ;
-	}
-	
-	boolean ajouterEnergie (int plus) {
-		if(energie == maxEnergie )
+
+	public boolean deplacer(Cellule cel) {
+		int energieDeplacement = 50;
+		
+		if (this.retirerEnergie(energieDeplacement)) {
+			this.setCel(cel);
+		}else {
 			return false;
-		energie = energie > maxEnergie ? maxEnergie : energie+plus;
+		}
 		return true;
-	}
-	
-	void deplacer(Cellule cel) {
-		this.setCel(cel);
+		
 	}
 
 	@Override
 	public void recevoirDmg(int dmg) {
+	}
+
+	@Override
+	public void recevoirHeal(int heal) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

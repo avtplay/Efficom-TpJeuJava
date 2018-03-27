@@ -1,7 +1,11 @@
+/**
+ * 
+ */
 package Mapping;
 
-
 import java.util.ArrayList;
+import java.awt.Color;
+import java.awt.color.*;
 
 /**
  * @author alanmenit
@@ -13,12 +17,15 @@ public class Carte {
 	protected int nombreZone;
 	protected ArrayList<Zone> listsZoneMap = new ArrayList<Zone>();
 	protected Cellule[][] cell;
+	protected int nbSpawn;
+	protected Coordinate[] spanwCoordinate;
 	
 	
 	public Carte() {
 		this.largeur = 50;
 		this.longueur = 50;
 		this.nombreZone = 4;
+		this.nbSpawn = 3;
 		
 		this.cell = new Cellule[this.largeur][this.longueur];
 		//for(int i = 0; i < this.largeur; i++)
@@ -54,16 +61,80 @@ public class Carte {
 					this.cell[i][j] = new Cellule(i, j, MapZone.getById(this.nombreZone-1));
 			}
 		}
+		
+		this.spanwCoordinate = new Coordinate[this.nbSpawn];
+		for(int i = 0; i < this.nbSpawn; i++) {
+			this.spanwCoordinate[i] = new Coordinate();
+			this.spanwCoordinate[i].generateCoordinate(this.largeur, this.longueur);
+		}
+		
+		int cpt = 0;
+		while(cpt < this.nbSpawn)
+		for(int i = 0; i < this.largeur; i++) {
+			for(int j = 0; j < this.longueur; j++) {
+				this.cell[i][j].setSpawnCase(this.spanwCoordinate[cpt].equalCoordinate(i, j));
+			}
+		}
 	
 	}
 	
 	public void printCarte() {
-        for(int i = 0; i < this.largeur; i++) {
-            System.out.print("Line "+i+":\t");
-            for(int j = 0; j < this.longueur; j++) {
-                System.out.print(this.cell[i][j]+"|");
-            }
-            System.out.println();
-        }
-    }
+		for(int i = 0; i < this.largeur; i++) {
+			System.out.print("\t|");
+			
+			for(int j = 0; j < this.longueur; j++) {
+				System.out.print("---|");
+			}
+			
+			System.out.println();
+			
+			System.out.print((i+1)+"\t|");
+			
+			for(int j = 0; j < this.longueur; j++) {
+				System.out.print(this.cell[i][j].mapZone.getTag()+"|");
+			}
+			
+			System.out.println();
+		}
+	}
+
+	public int getLargeur() {
+		return largeur;
+	}
+
+	public void setLargeur(int largeur) {
+		this.largeur = largeur;
+	}
+
+	public int getLongueur() {
+		return longueur;
+	}
+
+	public void setLongueur(int longueur) {
+		this.longueur = longueur;
+	}
+
+	public int getNombreZone() {
+		return nombreZone;
+	}
+
+	public void setNombreZone(int nombreZone) {
+		this.nombreZone = nombreZone;
+	}
+
+	public ArrayList<Zone> getListsZoneMap() {
+		return listsZoneMap;
+	}
+
+	public void setListsZoneMap(ArrayList<Zone> listsZoneMap) {
+		this.listsZoneMap = listsZoneMap;
+	}
+
+	public Cellule[][] getCell() {
+		return cell;
+	}
+
+	public void setCell(Cellule[][] cell) {
+		this.cell = cell;
+	}
 }

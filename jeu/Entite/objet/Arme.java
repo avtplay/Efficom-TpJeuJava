@@ -21,7 +21,7 @@ public class Arme extends Objet {
 	@Override
 	public void utiliser(Entite e) {
 		// TODO Auto-generated method stub
-		
+		e.recevoirDmg(puissance);
 	}
 
 }

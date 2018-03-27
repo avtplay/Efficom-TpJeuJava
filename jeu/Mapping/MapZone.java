@@ -3,21 +3,30 @@
  */
 package Mapping;
 
-
 /**
  * @author alanmenit
  *
  */
 public enum MapZone {
-	FORET(0),
-	MONTAGNE(1),
-	MER(2),
-	PLAINE(3);
+	FORET(0, "FOR"),
+	MONTAGNE(1, "MON"),
+	MER(2, "MER"),
+	PLAINE(3, "PLA");
 	
 	private int id;
+	private String tag;
 	
-	MapZone(int id) {
+	MapZone(int id, String tag) {
 		this.id = id;
+		this.tag = tag;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 
 	public int getId() {
