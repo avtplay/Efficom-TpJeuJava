@@ -1,11 +1,11 @@
 package Entite;
 
-public interface combattant {
-
+public interface Combattant {
+		
 	public void recevoirDmg(int dmg);
 
 	public void recevoirHeal(int heal);
 	
-	public void attaquer(combattant a);
+	public void attaquer(Combattant a);
 		
 }

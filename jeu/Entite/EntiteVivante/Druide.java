@@ -5,7 +5,7 @@ import java.util.Random;
 import Entite.Deplacable;
 import Entite.Entite;
 import Entite.Utilisable;
-import Entite.combattant;
+import Entite.Combattant;
 
 public class Druide extends Entite implements Utilisable{
 
@@ -17,7 +17,7 @@ public class Druide extends Entite implements Utilisable{
 	}
 
 	@Override
-	public void utiliser(combattant e) {
+	public void utiliser(Combattant e) {
 		Random r = new Random();
 		if(r.nextInt(10) >= 6) {
 			e.recevoirHeal(50);

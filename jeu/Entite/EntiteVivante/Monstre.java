@@ -2,10 +2,10 @@ package Entite.EntiteVivante;
 
 import Entite.Deplacable;
 import Entite.Entite;
-import Entite.combattant;
+import Entite.Combattant;
 import Mapping.Cellule;
 
-public class Monstre extends Entite implements Deplacable, combattant{
+public class Monstre extends Entite implements Deplacable, Combattant{
 	
 	int puissance;
 	
@@ -30,7 +30,7 @@ public class Monstre extends Entite implements Deplacable, combattant{
 	}
 
 	@Override
-	public void attaquer(combattant a) {
+	public void attaquer(Combattant a) {
 		a.recevoirDmg(puissance);
 	}
 

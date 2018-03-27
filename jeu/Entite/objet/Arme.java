@@ -1,6 +1,7 @@
 package Entite.objet;
 
 import Entite.Entite;
+import Entite.Combattant;
 
 public class Arme extends Objet {
 
@@ -19,9 +20,9 @@ public class Arme extends Objet {
 	}
 
 	@Override
-	public void utiliser(Entite e) {
+	public void utiliser(Combattant e) {
 		// TODO Auto-generated method stub
-		e.recevoirDmg(puissance);
+		
 	}
 
 }

@@ -2,6 +2,7 @@ package Entite.objet;
 
 import Entite.Entite;
 import Entite.Utilisable;
+import Entite.Combattant;
 
 public abstract class Objet implements Utilisable  {
 	
@@ -30,5 +31,5 @@ public abstract class Objet implements Utilisable  {
 	}
 
 	@Override
-	public abstract void utiliser(Entite e);
+	public abstract void utiliser(Combattant e);
 }
