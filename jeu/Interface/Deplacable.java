@@ -1,4 +1,4 @@
-package Entite;
+package Interface;
 
 import Mapping.Cellule;
 

@@ -1,7 +1,7 @@
 package Entite.Vehicule;
 
-import Entite.Deplacable;
-import Entite.Entite;
+import Entite.EntiteVivante.Entite;
+import Interface.Deplacable;
 import Mapping.Cellule;
 
 public abstract class Vehicule extends Entite implements Deplacable {

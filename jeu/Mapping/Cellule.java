@@ -5,9 +5,10 @@ package Mapping;
 
 import java.util.*;
 
-import Entite.Entite;
-import Entite.Objet;
+import Entite.objet.*;
+import Entite.EntiteVivante.Entite;
 import Entite.EntiteVivante.Personnage;
+import Entite.Vehicule.Vehicule;
 
 /**
  * @author alanmenit
@@ -21,7 +22,24 @@ public class Cellule {
 	private boolean spawnCase = false;
 	private ArrayList<Objet> listObjet = new ArrayList<Objet>();
 	private ArrayList<Entite> listPersonnage = new ArrayList<Entite>();
+	private ArrayList<Vehicule> vehicule = new ArrayList<Vehicule>();
+	public ArrayList<Vehicule> getVehicule() {
+		return vehicule;
+	}
+
+	public void setVehicule(ArrayList<Vehicule> vehicule) {
+		this.vehicule = vehicule;
+	}
+	private int or = 0;
 	
+	public int getOr() {
+		return or;
+	}
+
+	public void setOr(int or) {
+		this.or = or;
+	}
+
 	public MapZone getMapZone() {
 		return mapZone;
 	}
@@ -83,8 +101,8 @@ public class Cellule {
 			System.out.print("--");
 		System.out.println("|");
 		
-		System.out.print("|");
-		for(int i = 0; i < 20; i++)
+		System.out.print("|"+this.or+"");
+		for(int i = 0; i < 19; i++)
 			System.out.print(this.mapZone.getRepresentation());
 		System.out.println("|");
 		
@@ -95,12 +113,12 @@ public class Cellule {
 		
 		System.out.print("|");
 		for(int i =  0; i < this.listObjet.size(); i++)
-			System.out.print(this.listObjet.get(i)+"\t");
+			System.out.print(this.listObjet.get(i).getNom()+"\t");
 		System.out.println("|");
 		
 		System.out.print("|");
 		for(int i =  0; i < this.listPersonnage.size(); i++)
-			System.out.print(this.listPersonnage.get(i)+ "\t");
+			System.out.print(this.listPersonnage.get(i).getTag()+ "\t");
 		System.out.println("|");
 		
 		System.out.print("|");
@@ -131,5 +149,9 @@ public class Cellule {
 	}
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public String toString() {
+		return "coordonne de la cellule <"+this.getX()+","+this.getY()+">";
 	}
 }

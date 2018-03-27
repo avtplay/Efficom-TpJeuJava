@@ -1,15 +1,15 @@
 package Entite.EntiteVivante;
 
-import Entite.Deplacable;
-import Entite.Entite;
-import Entite.Combattant;
+import Interface.Combattant;
+import Interface.Deplacable;
 import Mapping.Cellule;
 
 public class Monstre extends Entite implements Deplacable, Combattant{
 	
 	int puissance;
 	
-	public Monstre(int puissance, String tag) {
+	public Monstre(Cellule c, int puissance, String tag) {
+		this.setCel(c);
 		this.setTag(tag);
 		this.puissance = puissance;
 	}

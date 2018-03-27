@@ -1,4 +1,4 @@
-package Entite;
+package Interface;
 
 public interface Utilisable {
 

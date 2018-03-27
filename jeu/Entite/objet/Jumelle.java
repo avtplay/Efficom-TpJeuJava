@@ -1,7 +1,7 @@
 package Entite.objet;
 
-import Entite.Jouable;
-import Entite.Combattant;
+import Interface.Combattant;
+import Interface.Jouable;
 
 public class Jumelle extends Objet{
 

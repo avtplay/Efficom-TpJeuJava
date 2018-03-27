@@ -2,11 +2,10 @@ package Entite.EntiteVivante;
 
 import java.util.ArrayList;
 
-import Entite.Deplacable;
-import Entite.Entite;
-import Entite.Jouable;
-import Entite.Objet;
-import Entite.Combattant;
+import Entite.objet.Objet;
+import Interface.Combattant;
+import Interface.Deplacable;
+import Interface.Jouable;
 import Mapping.Cellule;
 
 public class Personnage extends Entite implements Deplacable, Combattant, Jouable{
@@ -19,10 +18,13 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 	ArrayList<Objet> inventaire; 
 	String name; 
 	
-	public Personnage(String... n) {
+	public Personnage(Cellule c, String... n) {
 		String na = "Joueur 1";
 		if (n.length !=0  && n[0]!="") {
 			na = n[0];
+		}
+		if (n.length !=0  && n[1]!="") {
+			this.setTag(n[1]);
 		}
 		this.setEnergie(1000);
 		this.setMaxEnergie(1000);
@@ -31,6 +33,10 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 		bourse = 100;
 		name = na;
 		inventaire= new ArrayList<Objet>();
+		ArrayList<Entite> list = c.getListPersonnage();
+		list.add(this);
+		c.setListPersonnage(list);
+		this.setCel(c);
 	}
 	
 	boolean ajouterALInventaire(Objet o){
@@ -54,7 +60,13 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 		int energieDeplacement = 50;
 		
 		if (this.retirerEnergie(energieDeplacement)) {
+			ArrayList<Entite> l = this.getCel().getListPersonnage();
+			l.remove(this);
+			this.getCel().setListPersonnage(l);
 			this.setCel(cel);
+			l = cel.getListPersonnage();
+			l.add(this);
+			cel.setListPersonnage(l); 
 		}else {
 			return false;
 		}

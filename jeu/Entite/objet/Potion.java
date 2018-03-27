@@ -1,7 +1,7 @@
 package Entite.objet;
 
-import Entite.Utilisable;
-import Entite.Combattant;
+import Interface.Combattant;
+import Interface.Utilisable;
 
 public class Potion extends Objet{
 

@@ -1,13 +1,13 @@
 package Entite.objet;
 
-import Entite.Entite;
-import Entite.Combattant;
+import Entite.EntiteVivante.Entite;
+import Interface.Combattant;
 
 public class Arme extends Objet {
 
 	private int puissance;
 	public Arme(String n, int p, int pui) {
-		super(n, p);
+		super(n,p);
 		setPuissance(pui);
 	}
 	

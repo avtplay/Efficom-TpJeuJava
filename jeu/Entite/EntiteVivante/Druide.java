@@ -2,16 +2,17 @@ package Entite.EntiteVivante;
 
 import java.util.Random;
 
-import Entite.Deplacable;
-import Entite.Entite;
-import Entite.Utilisable;
-import Entite.Combattant;
+import Interface.Combattant;
+import Interface.Deplacable;
+import Interface.Utilisable;
+import Mapping.Cellule;
 
 public class Druide extends Entite implements Utilisable{
 
 	int heal = 250;
 	
-	public Druide(String tag, int energie) {
+	public Druide(Cellule c,String tag, int energie) {
+		this.setCel(c);
 		this.setTag(tag);
 		this.setEnergie(energie);
 	}
