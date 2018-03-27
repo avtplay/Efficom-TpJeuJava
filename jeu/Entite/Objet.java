@@ -1,14 +1,14 @@
 package Entite;
 
 public abstract class Objet {
-int poid;
+	int poid;
 
-public int getPoid() {
-	return poid;
-}
+	public int getPoid() {
+		return poid;
+	}
 
-public void setPoid(int poid) {
-	this.poid = poid;
-}
+	public void setPoid(int poid) {
+		this.poid = poid;
+	}
 
 }

@@ -56,6 +56,7 @@ public class Carte {
 		}
 	
 	}
+	
 	public void printCarte() {
         for(int i = 0; i < this.largeur; i++) {
             System.out.print("Line "+i+":\t");

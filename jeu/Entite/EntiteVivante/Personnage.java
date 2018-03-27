@@ -4,14 +4,18 @@ import java.util.ArrayList;
 
 import Entite.Entite;
 import Entite.Objet;
+import Mapping.Cellule;
 
 public class Personnage extends Entite{
-	
-	int maxEnergie;
-	int energie;
-	ArrayList<Objet> inventaire; 
+
 	int poidTotal; 
 	int poidMax;
+	int maxEnergie;
+	int energie;
+	int bourse;
+	
+	
+	ArrayList<Objet> inventaire; 
 	String name; 
 	
 	public Personnage(String... n) {
@@ -23,6 +27,7 @@ public class Personnage extends Entite{
 		maxEnergie = energie;
 		poidTotal = 0;
 		poidMax = 10;
+		bourse = 100;
 		name = na;
 		inventaire= new ArrayList<Objet>();
 	}
@@ -55,6 +60,13 @@ public class Personnage extends Entite{
 		return true;
 	}
 	
+	void deplacer(Cellule cel) {
+		this.setCel(cel);
+	}
+
+	@Override
+	public void recevoirDmg(int dmg) {
+	}
 	
 	
 }
