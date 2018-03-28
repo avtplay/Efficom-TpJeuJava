@@ -78,8 +78,8 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 
 	public boolean deplacer(Cellule cel) {
 		int energieDeplacement = 50;
-		
 		if (this.retirerEnergie(energieDeplacement)) {
+			this.getCel().setJoueurPres(false);
 			ArrayList<Entite> l = this.getCel().getListPersonnage();
 			l.remove(this);
 			this.getCel().setListPersonnage(l);
@@ -87,6 +87,7 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 			l = cel.getListPersonnage();
 			l.add(this);
 			cel.setListPersonnage(l); 
+			this.getCel().setJoueurPres(true);
 		}else {
 			return false;
 		}

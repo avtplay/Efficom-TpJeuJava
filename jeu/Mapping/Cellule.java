@@ -80,6 +80,14 @@ public class Cellule {
 		return objectifPresent;
 	}
 
+	public void supprimerObjet(Objet o) {
+		 listObjet.remove(o);
+	}
+	
+	public void ajouterObjet(Objet o) {
+		listObjet.add(o);
+	}
+	
 	public void setObjectifPresent(boolean objectifPresent) {
 		this.objectifPresent = objectifPresent;
 	}

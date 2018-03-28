@@ -33,6 +33,7 @@ public class Main {
 		String[] paramJoueur = new String[] { nomJoueur, TagJoueur };
 		Personnage joueur = new Personnage(spawnJoueur, paramJoueur);
 		entites.add(joueur);
+		spawnJoueur.setJoueurPres(true);
 		System.out.println("Bienvenue dans le jeu " + nomJoueur + " la partie va debuter");
 		demanderString();
 		while (!fin) {
@@ -101,7 +102,16 @@ public class Main {
 				Objet objetRamasser = cellDestination.getListObjet().get(choixObjet);
 				if(!joueur.ajouterALInventaire(objetRamasser)) {
 					System.out.println("votre inventaire est plein! \n Voulez vous l'echanger avec un autre objet ?\n Oui: \t 1 \t \t Non:\t 2");
-					
+					int choixJeter = demanderInt();
+					if(choixJeter == 1 ) {
+						System.out.println("quel objet jeter ? ");
+						listerInvenrtaire(joueur);
+						int indexAjeter = demanderInt();
+						Objet Ajeter = prendreObjetDansInventaire(joueur, indexAjeter); 
+						joueur.ajouterALInventaire(objetRamasser);
+						cellDestination.supprimerObjet(objetRamasser);
+						cellDestination.ajouterObjet(Ajeter);
+					}
 				}
 				
 			}catch (Exception e) {
@@ -238,6 +248,16 @@ public class Main {
 		c.printCarte();
 		System.out.println("appuyer sur Entrer pour quitter");
 		demanderString();
+	}
+	
+	private static void listerInvenrtaire(Personnage p) {
+		for(int i = 0; i<p.getInventaire().size()-1;i++) {
+			System.out.println(p.getInventaire().get(i).getNom()+": \t "+(i+1));
+		}
+	}
+	
+	private static Objet prendreObjetDansInventaire(Personnage p, int index) {
+		return p.getInventaire().remove(index);
 	}
 
 	private static String demanderString() {

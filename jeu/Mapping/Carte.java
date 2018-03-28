@@ -106,9 +106,9 @@ public class Carte {
             
             for(int j = 0; j < this.longueur; j++) {
                 if(this.cell[i][j].isJoueurPres())
-                    System.out.print(" X ");
+                    System.out.print(" X |");
                 else if(this.cell[i][j].isFinPres())
-                    System.out.print("OBJ");
+                    System.out.print("OBJ|");
                 else
                     System.out.print(this.cell[i][j].mapZone.getTag()+"|");
             }
