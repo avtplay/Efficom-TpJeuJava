@@ -66,6 +66,7 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 			}
 		inventaire.add(o);
 		poidTotal += o.getPoid();
+		System.out.println(inventaire.size() + "taille de l'inventaire");
 		return true;
 	}
 	
@@ -77,8 +78,10 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 	
 
 	public boolean deplacer(Cellule cel) {
-		int energieDeplacement = 50;
+		int energieDeplacement = 0;
+		
 		if (this.retirerEnergie(energieDeplacement)) {
+			
 			this.getCel().setJoueurPres(false);
 			ArrayList<Entite> l = this.getCel().getListPersonnage();
 			l.remove(this);
@@ -124,6 +127,10 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 	public void supprimerDeLInventaire(Objet select) {
 		inventaire.remove(select);
 		
+	}
+	public void supprimerDeLInventaire(int i) {
+		inventaire.remove(i);
+		System.out.println("inventaire size"+ inventaire.size());
 	}
 
 	public int getPoidTotal() {

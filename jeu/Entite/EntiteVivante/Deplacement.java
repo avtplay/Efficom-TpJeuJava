@@ -1,14 +1,14 @@
 package Entite.EntiteVivante;
 
 public enum Deplacement {
-	DROITE(1, 0),
-	GAUCHE(-1, 0),
-	HAUT(0, -1),
-	BAS(0, 1),
-	DROITEHAUT(1, -1),
+	DROITE(0, 1),
+	GAUCHE(0, -1),
+	HAUT(-1, 0),
+	BAS(1, 0),
+	DROITEHAUT(-1, 1),
 	GAUCHEHAUT(-1, -1),
 	DROITEBAS(1, 1),
-	GAUCHEBAS(-1, 1);
+	GAUCHEBAS(1, -1);
 	
 	private int deplacementX;
 	private int deplacementY;
@@ -23,39 +23,39 @@ public enum Deplacement {
 	}
 	
 	public String getStringDeplacement(Deplacement d,boolean direction) {
-		if(d.getDeplacementX() == 1 && d.getDeplacementY() == 0)
+		if(d.getDeplacementX() == 0 && d.getDeplacementY() == 1)
 			return "DROITE"+ (direction? " 4":"");
-		else if(d.getDeplacementX() == -1 && d.getDeplacementY() == 0)
+		else if(d.getDeplacementX() == 0 && d.getDeplacementY() == -1)
 			return "GAUCHE"+ (direction? " 6":"");
-		else if(d.getDeplacementX()== 0 && d.getDeplacementY() == -1)
+		else if(d.getDeplacementX()== -1 && d.getDeplacementY() == 0)
 			return "HAUT"+ (direction? " 8":"");
-		else if(d.getDeplacementX() == 0 && d.getDeplacementY() == 1)
+		else if(d.getDeplacementX() == 1 && d.getDeplacementY() == 0)
 			return "BAS"+ (direction? " 2":"");
 		else if(d.getDeplacementX() == 1 && d.getDeplacementY() == 1)
 			return "DROITEBAS"+ (direction? " 3":"");
-		else if(d.getDeplacementX() == -1 && d.getDeplacementY() == 1)
-			return "GAUCHEBAS"+ (direction? " 1":"");
 		else if(d.getDeplacementX() == 1 && d.getDeplacementY() == -1)
+			return "GAUCHEBAS"+ (direction? " 1":"");
+		else if(d.getDeplacementX() == -1 && d.getDeplacementY() == 1)
 			return "DROITEHAUT"+ (direction? " 9":"");
 		else if(d.getDeplacementX() == -1 && d.getDeplacementY() == -1)
-			return "DROITEHAUT"+ (direction? " 7":"");
+			return "GAUCHEHAUT"+ (direction? " 7":"");
 		return "";
 	}
 
 	public int getDirection(Deplacement d) {
-		if(d.getDeplacementX() == 1 && d.getDeplacementY() == 0)
+		if(d.getDeplacementX() == 0 && d.getDeplacementY() == 1)
 			return 4;
-		else if(d.getDeplacementX() == -1 && d.getDeplacementY() == 0)
+		else if(d.getDeplacementX() == 0 && d.getDeplacementY() == -1)
 			return 6;
-		else if(d.getDeplacementX()== 0 && d.getDeplacementY() == -1)
+		else if(d.getDeplacementX()== -1 && d.getDeplacementY() == 0)
 			return 8;
-		else if(d.getDeplacementX() == 0 && d.getDeplacementY() == 1)
+		else if(d.getDeplacementX() == 1 && d.getDeplacementY() == 0)
 			return 2;
 		else if(d.getDeplacementX() == 1 && d.getDeplacementY() == 1)
 			return 3;
-		else if(d.getDeplacementX() == -1 && d.getDeplacementY() == 1)
-			return 1;
 		else if(d.getDeplacementX() == 1 && d.getDeplacementY() == -1)
+			return 1;
+		else if(d.getDeplacementX() == -1 && d.getDeplacementY() == 1)
 			return 9;
 		else if(d.getDeplacementX() == -1 && d.getDeplacementY() == -1)
 			return 7;

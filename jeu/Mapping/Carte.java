@@ -140,9 +140,6 @@ public class Carte {
         xMax = cellJ.getX() + vision;
         if(cellJ.getX() + vision > this.largeur-1)
             xMax = this.largeur-1;
-        
-        System.out.println(cellJ.getX()+"/"+cellJ.getY());
-        System.out.println(xMin+"/"+xMax+"/"+yMin+"/"+yMax);
         for (int i = xMin; i <= xMax; i++) {
             
             for(int j = yMin; j <= yMax; j++)

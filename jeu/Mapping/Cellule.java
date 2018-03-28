@@ -190,6 +190,6 @@ public class Cellule {
 	}
 	
 	public String toString() {
-		return "<"+this.getX()+","+this.getY()+">";
+		return "<"+(this.getX()+1)+","+(this.getY()+1)+">";
 	}
 }
