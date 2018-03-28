@@ -5,6 +5,15 @@ import Interface.Combattant;
 
 public class Arme extends Objet {
 
+	private boolean estEquiper = false;
+	public boolean isEstEquiper() {
+		return estEquiper;
+	}
+
+	public void setEstEquiper(boolean estEquiper) {
+		this.estEquiper = estEquiper;
+	}
+
 	private int puissance;
 	public Arme(String n, int p, int pui) {
 		super(n,p);

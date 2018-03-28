@@ -16,6 +16,23 @@ import Entite.Vehicule.Vehicule;
  *
  */
 public class Cellule {
+	private boolean joueurPres = false;
+	private boolean finPres = false;
+	public boolean isJoueurPres() {
+		return joueurPres;
+	}
+
+	public void setJoueurPres(boolean joueurPres) {
+		this.joueurPres = joueurPres;
+	}
+
+	public boolean isFinPres() {
+		return finPres;
+	}
+
+	public void setFinPres(boolean finPres) {
+		this.finPres = finPres;
+	}
 	private int x;
 	private int y;
 	public MapZone mapZone = MapZone.FORET;
@@ -154,6 +171,14 @@ public class Cellule {
 	
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public void supprimerPersonnage(Entite p) {
+		listPersonnage.remove(p);
+	}
+	
+	public void ajouterPersonnage(Entite p) {
+		listPersonnage.add(p);
 	}
 	
 	public String toString() {

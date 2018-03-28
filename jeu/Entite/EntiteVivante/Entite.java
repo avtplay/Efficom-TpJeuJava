@@ -8,7 +8,16 @@ public abstract class Entite {
 	private int maxEnergie;
 	private int energie;
 	private String tag;
+	private EnumEtatSante etatSante = EnumEtatSante.BONETAT;
 	
+	public EnumEtatSante getEtatSante() {
+		return etatSante;
+	}
+
+	public void setEtatSante(EnumEtatSante etatSante) {
+		this.etatSante = etatSante;
+	}
+
 	public String getTag() {
 		return tag;
 	}

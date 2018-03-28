@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import Entite.objet.*;
+import Entite.EntiteVivante.Deplacement;
 import Entite.EntiteVivante.Druide;
 import Entite.EntiteVivante.Entite;
 import Entite.EntiteVivante.Monstre;
@@ -92,24 +93,29 @@ public class Carte {
 	}
 	
 	public void printCarte() {
-		for(int i = 0; i < this.largeur; i++) {
-			System.out.print("\t|");
-			
-			for(int j = 0; j < this.longueur; j++) {
-				System.out.print("---|");
-			}
-			
-			System.out.println();
-			
-			System.out.print((i+1)+"\t|");
-			
-			for(int j = 0; j < this.longueur; j++) {
-				System.out.print(this.cell[i][j].mapZone.getTag()+"|");
-			}
-			
-			System.out.println();
-		}
-	}
+        for(int i = 0; i < this.largeur; i++) {
+            System.out.print("\t|");
+            
+            for(int j = 0; j < this.longueur; j++) {
+                System.out.print("---|");
+            }
+            
+            System.out.println();
+            
+            System.out.print((i+1)+"\t|");
+            
+            for(int j = 0; j < this.longueur; j++) {
+                if(this.cell[i][j].isJoueurPres())
+                    System.out.print(" X ");
+                else if(this.cell[i][j].isFinPres())
+                    System.out.print("OBJ");
+                else
+                    System.out.print(this.cell[i][j].mapZone.getTag()+"|");
+            }
+            
+            System.out.println();
+        }
+    }
 	
 	public void displayCellGamer(Cellule cellJ, boolean jumelle) {
         int vision = 1;
@@ -430,5 +436,29 @@ public class Carte {
 			}
 		}
 		return list;
+	}
+	
+	public ArrayList<Deplacement> getDeplacementDisponible(Cellule c){
+		ArrayList<Cellule> cels= getCellulevoisine(c);
+		ArrayList<Deplacement> deplacements = new ArrayList<Deplacement>();
+		for(Cellule i : cels) {
+			if((c.getX()-i.getX()) == 1 && (c.getY()-i.getY()) == 0)
+				deplacements.add(Deplacement.DROITE);
+			else if((c.getX()-i.getX()) == -1 && (c.getY()-i.getY()) == 0)
+				deplacements.add(Deplacement.GAUCHE);
+			else if((c.getX()-i.getX()) == 0 && (c.getY()-i.getY()) == -1)
+				deplacements.add(Deplacement.HAUT);
+			else if((c.getX()-i.getX()) == 0 && (c.getY()-i.getY()) == 1)
+				deplacements.add(Deplacement.BAS);
+			else if((c.getX()-i.getX()) == 1 && (c.getY()-i.getY()) == 1)
+				deplacements.add(Deplacement.DROITEBAS);
+			else if((c.getX()-i.getX()) == -1 && (c.getY()-i.getY()) == 1)
+				deplacements.add(Deplacement.GAUCHEBAS);
+			else if((c.getX()-i.getX()) == 1 && (c.getY()-i.getY()) == -1)
+				deplacements.add(Deplacement.DROITEHAUT);
+			else if((c.getX()-i.getX()) == -1 && (c.getY()-i.getY()) == -1)
+				deplacements.add(Deplacement.DROITEHAUT);
+		}
+		return deplacements;
 	}
 }

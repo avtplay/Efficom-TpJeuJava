@@ -2,6 +2,7 @@ package Entite.EntiteVivante;
 
 import java.util.ArrayList;
 
+import Entite.objet.Arme;
 import Entite.objet.Objet;
 import Interface.Combattant;
 import Interface.Deplacable;
@@ -14,62 +15,27 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 	int poidMax;
 	int bourse;
 	boolean visionAmeliorer = false;
-	
-	public boolean asVisionAmeliorer() {
-		return visionAmeliorer;
-	}
-
-	public int getPoidTotal() {
-		return poidTotal;
-	}
-
-	public void setPoidTotal(int poidTotal) {
-		this.poidTotal = poidTotal;
-	}
-
-	public int getPoidMax() {
-		return poidMax;
-	}
-
-	public void setPoidMax(int poidMax) {
-		this.poidMax = poidMax;
-	}
-
-	public int getBourse() {
-		return bourse;
-	}
-
-	public void setBourse(int bourse) {
-		this.bourse = bourse;
-	}
-
-	public ArrayList<Objet> getInventaire() {
-		return inventaire;
-	}
-
-	public void setInventaire(ArrayList<Objet> inventaire) {
-		this.inventaire = inventaire;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public boolean isVisionAmeliorer() {
-		return visionAmeliorer;
-	}
-
-	public void setVisionAmeliorer(boolean visionAmeliorer) {
-		this.visionAmeliorer = visionAmeliorer;
-	}
-
+	Arme poing = new Arme("poing", 0, 20);
+	private EnumEtatSante etatSante = EnumEtatSante.BONETAT;
+	Arme armeEquiper;
 	ArrayList<Objet> inventaire; 
 	String name; 
 	
+	public Arme getArmeEquiper() {
+		return armeEquiper;
+	}
+
+	public void desequiper() {
+		armeEquiper.setEstEquiper(false);
+		this.armeEquiper = poing;
+		poing.setEstEquiper(true);
+	}
+	public void setArmeEquiper(Arme armeEquiper) {
+		this.armeEquiper.setEstEquiper(false);
+		armeEquiper.setEstEquiper(true);
+		this.armeEquiper = armeEquiper;
+	}
+
 	public Personnage(Cellule c, String... n) {
 		String na = "Joueur 1";
 		if (n.length !=0  && n[0]!="") {
@@ -78,6 +44,8 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 		if (n.length !=0  && n[1]!="") {
 			this.setTag(n[1]);
 		}
+		poing.setEstEquiper(true);
+		armeEquiper = poing;
 		this.setEnergie(1000);
 		this.setMaxEnergie(1000);
 		poidTotal = 0;
@@ -91,7 +59,7 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 		this.setCel(c);
 	}
 	
-	boolean ajouterALInventaire(Objet o){
+	public boolean ajouterALInventaire(Objet o){
 		if ( (inventaire.size() >= 5) && (poidTotal + o.getPoid()) > poidMax ) {
 			
 			return false;
@@ -148,5 +116,70 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 		visionAmeliorer = true;
 	}
 	
+	public void soignerEtat(Combattant e) {
+		return;
+	}
+
+	public void supprimerDeLInventaire(Objet select) {
+		inventaire.remove(select);
+		
+	}
+
+	public int getPoidTotal() {
+		return poidTotal;
+	}
+
+	public void setPoidTotal(int poidTotal) {
+		this.poidTotal = poidTotal;
+	}
+
+	public int getPoidMax() {
+		return poidMax;
+	}
+
+	public void setPoidMax(int poidMax) {
+		this.poidMax = poidMax;
+	}
+
+	public int getBourse() {
+		return bourse;
+	}
+
+	public void setBourse(int bourse) {
+		this.bourse = bourse;
+	}
+
+	public boolean isVisionAmeliorer() {
+		return visionAmeliorer;
+	}
+
+	public void setVisionAmeliorer(boolean visionAmeliorer) {
+		this.visionAmeliorer = visionAmeliorer;
+	}
+
+	public EnumEtatSante getEtatSante() {
+		return etatSante;
+	}
+
+	public void setEtatSante(EnumEtatSante etatSante) {
+		this.etatSante = etatSante;
+	}
+
+	public ArrayList<Objet> getInventaire() {
+		return inventaire;
+	}
+
+	public void setInventaire(ArrayList<Objet> inventaire) {
+		this.inventaire = inventaire;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 }
+

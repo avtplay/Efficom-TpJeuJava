@@ -33,5 +33,9 @@ public class Monstre extends Entite implements Deplacable, Combattant{
 	public void attaquer(Combattant a) {
 		a.recevoirDmg(puissance);
 	}
+	
+	public void soignerEtat(Combattant e) {
+		return;
+	}
 
 }
