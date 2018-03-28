@@ -157,6 +157,6 @@ public class Cellule {
 	}
 	
 	public String toString() {
-		return "coordonne de la cellule <"+this.getX()+","+this.getY()+">";
+		return "<"+this.getX()+","+this.getY()+">";
 	}
 }

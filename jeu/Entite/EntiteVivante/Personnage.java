@@ -15,6 +15,58 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 	int bourse;
 	boolean visionAmeliorer = false;
 	
+	public boolean asVisionAmeliorer() {
+		return visionAmeliorer;
+	}
+
+	public int getPoidTotal() {
+		return poidTotal;
+	}
+
+	public void setPoidTotal(int poidTotal) {
+		this.poidTotal = poidTotal;
+	}
+
+	public int getPoidMax() {
+		return poidMax;
+	}
+
+	public void setPoidMax(int poidMax) {
+		this.poidMax = poidMax;
+	}
+
+	public int getBourse() {
+		return bourse;
+	}
+
+	public void setBourse(int bourse) {
+		this.bourse = bourse;
+	}
+
+	public ArrayList<Objet> getInventaire() {
+		return inventaire;
+	}
+
+	public void setInventaire(ArrayList<Objet> inventaire) {
+		this.inventaire = inventaire;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean isVisionAmeliorer() {
+		return visionAmeliorer;
+	}
+
+	public void setVisionAmeliorer(boolean visionAmeliorer) {
+		this.visionAmeliorer = visionAmeliorer;
+	}
+
 	ArrayList<Objet> inventaire; 
 	String name; 
 	

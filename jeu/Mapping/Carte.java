@@ -8,6 +8,7 @@ import java.util.Random;
 
 import Entite.objet.*;
 import Entite.EntiteVivante.Druide;
+import Entite.EntiteVivante.Entite;
 import Entite.EntiteVivante.Monstre;
 import Entite.Vehicule.EnumVehicule;
 import Entite.Vehicule.Vehicule;
@@ -28,7 +29,7 @@ public class Carte {
 	protected Cellule[][] cell;
 	protected int nbSpawn;
 	protected Coordinate[] spanwCoordinate;
-	
+	protected ArrayList<Entite> entites = new ArrayList<Entite>();
 	
 	public Carte() {
 		this.largeur = 50;
@@ -111,131 +112,151 @@ public class Carte {
 	}
 	
 	public void displayCellGamer(Cellule cellJ, boolean jumelle) {
-		int vision = 1;
-		
-		if(jumelle) {
-			vision = 2;
-		}
-		
-		int xMin, xMax, yMin, yMax;
-		yMin = cellJ.getY() - vision;
-		if(cellJ.getY() - vision < 0)
-			yMin = 0;
-		
-		yMax = cellJ.getY() + vision;
-		if(cellJ.getY() + vision > this.longueur-1)
-			yMax = this.longueur - 1;
-		
-		xMin = cellJ.getX() - vision;
-		if(cellJ.getX() - vision < 0)
-			xMin = 0;
-		
-		xMax = cellJ.getX() + vision;
-		if(cellJ.getX() + vision > this.largeur-1)
-			xMax = this.largeur-1;
-		
-		System.out.println(cellJ.getX()+"/"+cellJ.getY());
-		System.out.println(xMin+"/"+xMax+"/"+yMin+"/"+yMax);
-		for (int i = xMin; i <= xMax; i++) {
-			
-			for(int j = yMin; j <= yMax; j++)
-			for(int k = 0; k < 20; k++) {
-				if(k%20 == 0) {
-					System.out.print("|");
-				}else {
-					System.out.print("--");
-				}
-			}
-			System.out.println("|");
-			
-			for(int j = yMin; j <= yMax; j++) {
-				for(int k = 0; k < 20; k++) {
-					if(k%20 == 0) {
-						System.out.print("|");
-					}else {
-						System.out.print(this.cell[i][j].getMapZone().getRepresentation());
-					}
-				}
-			}
-			System.out.println("|");
-			
-			for(int j = yMin; j <= yMax; j++) {
-				if(this.cell[i][j].getListPersonnage().size() == 0)
-					for(int k = 0; k < 20; k++) {
-						if(k%20 == 0) {
-							System.out.print("|");
-						}else {
-							System.out.print(this.cell[i][j].getMapZone().getRepresentation());
-						}
-					}
-				else {
-					System.out.print("|");
-					for(int tmp = 0; tmp < this.cell[i][j].getListObjet().size(); tmp++) {
-						System.out.print(this.cell[i][j].getListObjet().get(tmp).getNom()+"\t");
-					}
-				}
-			}
-			System.out.println("|");
-			
-			for(int j = yMin; j <= yMax; j++) {
-				if(this.cell[i][j].getListPersonnage().size() == 0)
-					for(int k = 0; k < 20; k++) {
-						if(k%20 == 0) {
-							System.out.print("|");
-						}else {
-							System.out.print(this.cell[i][j].getMapZone().getRepresentation());
-						}
-					}
-				else {
-					System.out.print("|");
-					for(int tmp = 0; tmp < this.cell[i][j].getListPersonnage().size(); tmp++) {
-						System.out.print(this.cell[i][j].getListPersonnage().get(tmp).getTag()+"\t");
-					}
-				}
-			}
-			System.out.println("|");
-			
-			for(int j = yMin; j <= yMax; j++) {
-				if(this.cell[i][j].getListPersonnage().size() == 0)
-					for(int k = 0; k < 20; k++) {
-						if(k%20 == 0) {
-							System.out.print("|");
-						}else {
-							System.out.print(this.cell[i][j].getMapZone().getRepresentation());
-						}
-					}
-				else {
-					System.out.print("|");
-					for(int tmp = 0; tmp < this.cell[i][j].getVehicule().size(); tmp++) {
-						System.out.print(this.cell[i][j].getVehicule().get(tmp).getNom()+"\t");
-					}
-				}
-			}
-			System.out.println("|");
-			
-			for(int j = yMin; j <= yMax; j++) {
-				for(int k = 0; k < 20; k++) {
-					if(k%20 == 0) {
-						System.out.print("|");
-					}else {
-						System.out.print(this.cell[i][j].getMapZone().getRepresentation());
-					}
-				}
-			}
-			System.out.println("|");
-			
-			for(int j = yMin; j <= yMax; j++)
-				for(int k = 0; k < 20; k++) {
-					if(k%20 == 0) {
-						System.out.print("|");
-					}else {
-						System.out.print("--");
-					}
-				}
-			System.out.println("|");
-
-		}
-	}
+        int vision = 1;
+        
+        if(jumelle) {
+            vision = 2;
+        }
+        
+        int xMin, xMax, yMin, yMax;
+        yMin = cellJ.getY() - vision;
+        if(cellJ.getY() - vision < 0)
+            yMin = 0;
+        
+        yMax = cellJ.getY() + vision;
+        if(cellJ.getY() + vision > this.longueur-1)
+            yMax = this.longueur - 1;
+        
+        xMin = cellJ.getX() - vision;
+        if(cellJ.getX() - vision < 0)
+            xMin = 0;
+        
+        xMax = cellJ.getX() + vision;
+        if(cellJ.getX() + vision > this.largeur-1)
+            xMax = this.largeur-1;
+        
+        System.out.println(cellJ.getX()+"/"+cellJ.getY());
+        System.out.println(xMin+"/"+xMax+"/"+yMin+"/"+yMax);
+        for (int i = xMin; i <= xMax; i++) {
+            
+            for(int j = yMin; j <= yMax; j++)
+            for(int k = 0; k < 20; k++) {
+                if(k%20 == 0) {
+                    System.out.print("|");
+                }else {
+                    System.out.print("--");
+                }
+            }
+            System.out.println("|");
+            
+            for(int j = yMin; j <= yMax; j++) {
+                for(int k = 0; k < 20; k++) {
+                    if(k%20 == 0) {
+                        System.out.print("|");
+                    }else {
+                        System.out.print(this.cell[i][j].getMapZone().getRepresentation());
+                    }
+                }
+            }
+            System.out.println("|");
+            
+            for(int j = yMin; j <= yMax; j++) {
+                if(this.cell[i][j].getListObjet().size() == 0)
+                    for(int k = 0; k < 20; k++) {
+                        if(k%20 == 0) {
+                            System.out.print("|");
+                        }else {
+                            System.out.print(this.cell[i][j].getMapZone().getRepresentation());
+                        }
+                    }
+                else {
+                    System.out.print("|");
+                    String str = "";
+                    for(int tmp = 0; tmp < this.cell[i][j].getListObjet().size(); tmp++) {
+                        str += this.cell[i][j].getListObjet().get(tmp).getNom()+" ";
+                        //System.out.print(this.cell[i][j].getListObjet().get(tmp).getNom()+" ");
+                    }
+                    int taille = 40 - (str.length()+1);
+                    for(int k = 0; k < taille-1; k++) {
+                        str += this.cell[i][j].getMapZone().getRepresentation().charAt(0);
+                    }
+                    System.out.print(str);
+                }
+            }
+            System.out.println("|");
+            
+            for(int j = yMin; j <= yMax; j++) {
+                if(this.cell[i][j].getListPersonnage().size() == 0)
+                    for(int k = 0; k < 20; k++) {
+                        if(k%20 == 0) {
+                            System.out.print("|");
+                        }else {
+                            System.out.print(this.cell[i][j].getMapZone().getRepresentation());
+                        }
+                    }
+                else {
+                    System.out.print("|");
+                    String str = "";
+                    for(int tmp = 0; tmp < this.cell[i][j].getListPersonnage().size(); tmp++) {
+                        str += this.cell[i][j].getListPersonnage().get(tmp).getTag();
+                        //System.out.print(this.cell[i][j].getListPersonnage().get(tmp).getTag()+"\t");
+                    }
+                    int taille = 40 - (str.length()+1);
+                    for(int k = 0; k < taille-1; k++) {
+                        str += this.cell[i][j].getMapZone().getRepresentation().charAt(0);
+                    }
+                    System.out.print(str);
+                }
+            }
+            System.out.println("|");
+            
+            for(int j = yMin; j <= yMax; j++) {
+                if(this.cell[i][j].getVehicule().size() == 0)
+                    for(int k = 0; k < 20; k++) {
+                        if(k%20 == 0) {
+                            System.out.print("|");
+                        }else {
+                            System.out.print(this.cell[i][j].getMapZone().getRepresentation());
+                        }
+                    }
+                else {
+                    System.out.print("|");
+                    String str = "";
+                    for(int tmp = 0; tmp < this.cell[i][j].getVehicule().size(); tmp++) {
+                        str += this.cell[i][j].getVehicule().get(tmp).getNom()+" ";
+                        //System.out.print(this.cell[i][j].getVehicule().get(tmp).getNom()+"\t");
+                    }
+                    int taille = 40 - (str.length()+1);
+                    for(int k = 0; k < taille-1; k++) {
+                        str += this.cell[i][j].getMapZone().getRepresentation().charAt(0);
+                    }
+                    System.out.print(str);
+                }
+            }
+            System.out.println("|");
+            
+            for(int j = yMin; j <= yMax; j++) {
+                for(int k = 0; k < 20; k++) {
+                    if(k%20 == 0) {
+                        System.out.print("|");
+                    }else {
+                        System.out.print(this.cell[i][j].getMapZone().getRepresentation());
+                    }
+                }
+            }
+            System.out.println("|");
+            
+            for(int j = yMin; j <= yMax; j++)
+                for(int k = 0; k < 20; k++) {
+                    if(k%20 == 0) {
+                        System.out.print("|");
+                    }else {
+                        System.out.print("--");
+                    }
+                }
+            System.out.println("|");
+        }
+    }
 	
 	public int getNbSpawn() {
 		return nbSpawn;
@@ -289,9 +310,19 @@ public class Carte {
 	}
 	
 	private void ajouterMonstre(Coordinate coord) {
-		this.cell[coord.getX()][coord.getY()].getListPersonnage().add(new Monstre(this.cell[coord.getX()][coord.getY()],150,"Mon"));
+		Monstre e = new Monstre(this.cell[coord.getX()][coord.getY()],150,"Mon");
+		this.cell[coord.getX()][coord.getY()].getListPersonnage().add(e);
+		entites.add(e);
 	}
 	
+	public ArrayList<Entite> getEntites() {
+		return entites;
+	}
+
+	public void setEntites(ArrayList<Entite> entites) {
+		this.entites = entites;
+	}
+
 	private void ajouterDruide(Coordinate coord) {
 		this.cell[coord.getX()][coord.getY()].getListPersonnage().add(new Druide(this.cell[coord.getX()][coord.getY()],"DR",1));
 	}
@@ -312,7 +343,7 @@ public class Carte {
 			break;
 			
 		default:
-			this.cell[coord.getX()][coord.getY()].getListObjet().add(new Arme("Epée", 3, 6));
+			this.cell[coord.getX()][coord.getY()].getListObjet().add(new Arme("EpÃ©e", 3, 6));
 			break;
 			
 		}
