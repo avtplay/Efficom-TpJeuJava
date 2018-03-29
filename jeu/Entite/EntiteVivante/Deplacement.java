@@ -8,7 +8,8 @@ public enum Deplacement {
 	DROITEHAUT(-1, 1),
 	GAUCHEHAUT(-1, -1),
 	DROITEBAS(1, 1),
-	GAUCHEBAS(1, -1);
+	GAUCHEBAS(1, -1),
+	NOMOOVE(0, 0);
 	
 	private int deplacementX;
 	private int deplacementY;
@@ -63,23 +64,25 @@ public enum Deplacement {
 	}
 	
 	public static Deplacement getDeplacementviaDireection(int i) {
-		if(i == 4)
+		if(i == 1)
 			return Deplacement.GAUCHE;
-		else if(i == 6)
-			return Deplacement.DROITE;
-		else if(i == 8)
-			return Deplacement.HAUT;
 		else if(i == 2)
-			return Deplacement.BAS;
+			return Deplacement.DROITE;
 		else if(i == 3)
+			return Deplacement.HAUT;
+		else if(i == 4)
+			return Deplacement.BAS;
+		else if(i == 5)
 			return Deplacement.DROITEBAS;
-		else if(i == 1)
+		else if(i == 6)
 			return Deplacement.GAUCHEBAS;
-		else if(i == 9)
-			return Deplacement.DROITEHAUT;
 		else if(i == 7)
+			return Deplacement.DROITEHAUT;
+		else if(i == 8)
 			return Deplacement.GAUCHEHAUT;
-		return null;
+		else {
+			return Deplacement.NOMOOVE;
+		}
 	}
 	public void setDeplacementX(int deplacementX) {
 		this.deplacementX = deplacementX;

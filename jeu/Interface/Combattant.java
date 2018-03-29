@@ -1,5 +1,7 @@
 package Interface;
 
+import Entite.EntiteVivante.EnumEtatSante;
+
 public interface Combattant {
 		
 	public void recevoirDmg(int dmg);
@@ -10,4 +12,5 @@ public interface Combattant {
 	
 	public void soignerEtat(Combattant e);
 		
+	public void modifierEtatSante(EnumEtatSante etatSante);
 }

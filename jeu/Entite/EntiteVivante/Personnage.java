@@ -1,7 +1,10 @@
 package Entite.EntiteVivante;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import Entite.Vehicule.EnumVehicule;
+import Entite.Vehicule.Vehicule;
 import Entite.objet.Arme;
 import Entite.objet.Objet;
 import Interface.Combattant;
@@ -15,11 +18,12 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 	int poidMax;
 	int bourse;
 	boolean visionAmeliorer = false;
-	Arme poing = new Arme("poing", 0, 20);
+	Arme armeEquipe = new Arme("poing", 0, 20);
 	private EnumEtatSante etatSante = EnumEtatSante.BONETAT;
 	Arme armeEquiper;
 	ArrayList<Objet> inventaire; 
-	String name; 
+	String name;
+	EnumVehicule vehicule;
 	
 	public Arme getArmeEquiper() {
 		return armeEquiper;
@@ -27,15 +31,37 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 
 	public void desequiper() {
 		armeEquiper.setEstEquiper(false);
-		this.armeEquiper = poing;
-		poing.setEstEquiper(true);
+		this.armeEquiper = armeEquipe;
+		armeEquipe.setEstEquiper(true);
 	}
+	public Arme getArmeEquipe() {
+		return armeEquipe;
+	}
+	public boolean estVehiculer() {
+		return !(vehicule == null); 
+	}
+
+	public EnumVehicule getVehicule() {
+		return vehicule;
+	}
+
+	public void setVehicule(EnumVehicule vehicule) {
+		this.vehicule = vehicule;
+	}
+
+	public void setArmeEquipe(Arme armeEquipe) {
+		this.armeEquipe = armeEquipe;
+	}
+
 	public void setArmeEquiper(Arme armeEquiper) {
 		this.armeEquiper.setEstEquiper(false);
 		armeEquiper.setEstEquiper(true);
 		this.armeEquiper = armeEquiper;
 	}
 
+	public boolean peutUtiliserVehicule(Cellule cDestination) {
+		return (this.vehicule.getCarburant()>0)&&(this.vehicule.getIdZone() == cDestination.getMapZone().getId());
+	}
 	public Personnage(Cellule c, String... n) {
 		String na = "Joueur 1";
 		if (n.length !=0  && n[0]!="") {
@@ -44,8 +70,8 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 		if (n.length !=0  && n[1]!="") {
 			this.setTag(n[1]);
 		}
-		poing.setEstEquiper(true);
-		armeEquiper = poing;
+		armeEquipe.setEstEquiper(true);
+		armeEquiper = armeEquipe;
 		this.setEnergie(1000);
 		this.setMaxEnergie(1000);
 		poidTotal = 0;
@@ -78,10 +104,19 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 	
 
 	public boolean deplacer(Cellule cel) {
-		int energieDeplacement = 0;
-		
-		if (this.retirerEnergie(energieDeplacement)) {
-			
+		int energieDeplacement = 10;
+		if(estVehiculer() && peutUtiliserVehicule(cel)) {
+			vehicule.setCarburant(vehicule.getCarburant()-vehicule.getConsomationCarburant());
+		}
+		else if (this.retirerEnergie(energieDeplacement)) {
+
+			switch(cel.getMapZone().getId()) {
+			case 1:
+			case 2:	
+				energieDeplacement = 15;
+				break;
+				
+			}
 			this.getCel().setJoueurPres(false);
 			ArrayList<Entite> l = this.getCel().getListPersonnage();
 			l.remove(this);
@@ -91,26 +126,59 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 			l.add(this);
 			cel.setListPersonnage(l); 
 			this.getCel().setJoueurPres(true);
+			
+			this.effetEtatSante();
+			this.appliqueDegatEtatSante();
 		}else {
 			return false;
 		}
 		return true;
 		
 	}
+	
+	public void appliqueDegatEtatSante() {
+		this.setEnergie(this.getEnergie() - this.etatSante.getDegatSubit());
+		System.out.println(this.etatSante.getNom());
+	}
+	
+	public void effetEtatSante() {
+		if(this.risqueMaladie())
+			this.setEtatSante(EnumEtatSante.MALADE);
+		
+		return;
+	}
+	
+	public boolean risqueMaladie() {
+		Random rand = new Random();
+		
+		return rand.nextInt(100) == 0;
+	}
 
+	public void toStringPersonnage() {
+		System.out.println(this.getName());
+		System.out.println("Argent: "+this.getBourse()+"\tEtat santé: "+this.getEtatSante().getNom());
+		System.out.println("Energie: "+this.getEnergie()+"\n" +(this.getVehicule() != null?("carburant vehicule: "+ this.getVehicule().getCarburant()):""));
+		return;
+	}
+	
 	@Override
 	public void recevoirDmg(int dmg) {
+		this.retirerEnergie(dmg);
 	}
 
 	@Override
 	public void recevoirHeal(int heal) {
 		// TODO Auto-generated method stub
+		if(this.getEnergie() + heal >= 1000)
+			this.setEnergie(1000);
+		else
+			this.setEnergie(this.getEnergie()+heal);
 		
 	}
 
 	@Override
 	public void attaquer(Combattant a) {
-		// TODO Auto-generated method stub
+		a.recevoirDmg(this.getArmeEquipe().getPuissance());
 		
 	}
 
@@ -122,6 +190,11 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 	
 	public void soignerEtat(Combattant e) {
 		return;
+	}
+	
+	@Override
+	public void modifierEtatSante(EnumEtatSante etatSante) {
+		this.setEtatSante(etatSante);
 	}
 
 	public void supprimerDeLInventaire(Objet select) {
@@ -190,4 +263,3 @@ public class Personnage extends Entite implements Deplacable, Combattant, Jouabl
 	}
 	
 }
-

@@ -7,6 +7,7 @@ import java.util.*;
 
 import Entite.objet.*;
 import Entite.EntiteVivante.Entite;
+import Entite.EntiteVivante.Monstre;
 import Entite.EntiteVivante.Personnage;
 import Entite.Vehicule.EnumVehicule;
 import Entite.Vehicule.Vehicule;
@@ -87,7 +88,14 @@ public class Cellule {
 	public void ajouterObjet(Objet o) {
 		listObjet.add(o);
 	}
-	
+	public Monstre checkMonstre() {
+		for(Entite e: this.getListPersonnage()) {
+			if(e instanceof Monstre) {
+				return (Monstre)e;
+			}
+		}
+		return null;
+	}
 	public void setObjectifPresent(boolean objectifPresent) {
 		this.objectifPresent = objectifPresent;
 	}

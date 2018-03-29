@@ -3,21 +3,31 @@ package Entite.Vehicule;
 import Mapping.MapZone;
 
 public enum EnumVehicule {
-	MOTO(2, "Moto", "BIK", 0),
-	BATEAU(2, "Bateur", "BAT", 2),
-	VOITURE(2, "Voiture", "VOI", 3),
-	JETSKI(2, "Jetski", "JET", 1);
+	MOTO(50, "Moto", "BIK", 0, 10),
+	BATEAU(50, "Bateur", "BAT", 2, 10),
+	VOITURE(50, "Voiture", "VOI", 3, 10),
+	JETSKI(50, "Jetski", "JET", 1, 10);
 	
 	private int carburant;
 	private String nom;
 	private String tag;
 	private int idZone;
+	private int consomationCarburant;
 	
-	EnumVehicule(int carburant, String nom, String tag, int idZone){
+	EnumVehicule(int carburant, String nom, String tag, int idZone, int conso){
 		this.carburant = carburant;
 		this.nom = nom;
 		this.tag = tag;
 		this.idZone = idZone;
+		this.consomationCarburant = conso;
+	}
+
+	public int getConsomationCarburant() {
+		return consomationCarburant;
+	}
+
+	public void setConsomationCarburant(int consomationCarburant) {
+		this.consomationCarburant = consomationCarburant;
 	}
 
 	public static EnumVehicule getVehiculeByMapZone(MapZone z) {

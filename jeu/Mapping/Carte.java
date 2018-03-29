@@ -68,7 +68,7 @@ public class Carte {
 					this.cell[i][j] = new Cellule(i, j, MapZone.getById(this.nombreZone-1));
 			}
 		}
-		
+		this.cell[this.largeur-1][this.longueur-1].setObjectifPresent(true);
 		this.spanwCoordinate = new Coordinate[this.nbSpawn];
 		for(int i = 0; i < this.nbSpawn; i++) {
 			this.spanwCoordinate[i] = new Coordinate();
@@ -107,7 +107,7 @@ public class Carte {
             for(int j = 0; j < this.longueur; j++) {
                 if(this.cell[i][j].isJoueurPres())
                     System.out.print(" X |");
-                else if(this.cell[i][j].isFinPres())
+                else if(this.cell[i][j].isObjectifPresent())
                     System.out.print("OBJ|");
                 else
                     System.out.print(this.cell[i][j].mapZone.getTag()+"|");
@@ -201,7 +201,7 @@ public class Carte {
                     System.out.print("|");
                     String str = "";
                     for(int tmp = 0; tmp < this.cell[i][j].getListPersonnage().size(); tmp++) {
-                        str += this.cell[i][j].getListPersonnage().get(tmp).getTag();
+                        str += this.cell[i][j].getListPersonnage().get(tmp).getTag() + " ";
                         //System.out.print(this.cell[i][j].getListPersonnage().get(tmp).getTag()+"\t");
                     }
                     int taille = 40 - (str.length()+1);
@@ -318,6 +318,36 @@ public class Carte {
 		entites.add(e);
 	}
 	
+	public void genererMonstreDeplacement() {
+		Deplacement  d;
+		for(int i = 0; i < this.getEntites().size(); i++) {
+			if(this.getEntites().get(i) instanceof Monstre) {
+				Monstre m = (Monstre) this.getEntites().get(i);
+				do {
+					Random rand = new Random();
+					d = Deplacement.getDeplacementviaDireection(rand.nextInt(8)+1);
+				}while(!this.deplacementAutoriser(m, d));
+				this.appliqueDeplacement(this.getEntites().get(i), d);
+			}
+		}
+	}
+	
+	private void appliqueDeplacement(Entite e, Deplacement d) {
+		System.out.println("Avant: "+this.cell[e.getCel().getX()][e.getCel().getY()].getListPersonnage().size());
+		this.cell[e.getCel().getX()][e.getCel().getY()].getListPersonnage().remove(e);
+		System.out.println("Apres: "+this.cell[e.getCel().getX()][e.getCel().getY()].getListPersonnage().size());
+		this.cell[e.getCel().getX() + d.getDeplacementX()][e.getCel().getY() +d.getDeplacementY()].getListPersonnage().add(e);
+		e.setCel(this.cell[e.getCel().getX() + d.getDeplacementX()][e.getCel().getY() +d.getDeplacementY()]);
+		
+		return;
+	}
+	
+	private boolean deplacementAutoriser(Monstre m, Deplacement d) {
+		return m.getCel().getX()+d.getDeplacementX() >= 0 && m.getCel().getX()+d.getDeplacementX() < this.getLargeur()
+				&& m.getCel().getY()+d.getDeplacementY() >= 0 && m.getCel().getY()+d.getDeplacementY() < this.getLongueur()
+		;
+	}
+	
 	public ArrayList<Entite> getEntites() {
 		return entites;
 	}
@@ -330,12 +360,12 @@ public class Carte {
 		this.cell[coord.getX()][coord.getY()].getListPersonnage().add(new Druide(this.cell[coord.getX()][coord.getY()],"DR",1));
 	}
 	
-	private void ajouterVehicule(Coordinate coord) {
+	public void ajouterVehicule(Coordinate coord) {
 		this.cell[coord.getX()][coord.getY()].getVehicule().add(EnumVehicule.getVehiculeByMapZone(this.cell[coord.getX()][coord.getY()].mapZone));
 	}
 	
 	private void ajouterJumelle(Coordinate coord) {
-		this.cell[coord.getX()][coord.getY()].getListObjet().add(new Jumelle("Jumelle", 1));
+		this.cell[coord.getX()][coord.getY()].getListObjet().add(new Jumelle());
 	}
 	
 	private void ajouterArme(Coordinate coord) {
@@ -354,7 +384,7 @@ public class Carte {
 	
 	private void ajouterPotion(Coordinate coord) {
 		Random r = new Random();
-		switch(r.nextInt(4)) {
+		switch(r.nextInt(5)) {
 		case 0:
 			this.cell[coord.getX()][coord.getY()].getListObjet().add(new Potion("Simple Potion", 2, 50));
 			break;
@@ -365,6 +395,10 @@ public class Carte {
 			
 		case 2:
 			this.cell[coord.getX()][coord.getY()].getListObjet().add(new Potion("Low Potion", 1, 25));
+			break;
+			
+		case 3:
+			this.cell[coord.getX()][coord.getY()].getListObjet().add(new Antidote());
 			break;
 			
 		default:

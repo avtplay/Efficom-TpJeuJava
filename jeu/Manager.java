@@ -7,8 +7,10 @@ import Entite.EntiteVivante.Druide;
 import Entite.EntiteVivante.Entite;
 import Entite.EntiteVivante.Monstre;
 import Entite.EntiteVivante.Personnage;
+import Entite.Vehicule.EnumVehicule;
 import Entite.objet.Antidote;
 import Entite.objet.Arme;
+import Entite.objet.Jumelle;
 import Entite.objet.Objet;
 import Entite.objet.Potion;
 import Mapping.Carte;
@@ -43,18 +45,72 @@ public class Manager {
 				Druide dr = (Druide) e;
 				nettoyerConsole();
 				System.out.println("Vous avez rencontrer un druide ! \n il vous propose sort pour 50 d'or.");
+				utiliserDruide(joueur, dr);
 			}
 		}
 		//// objet
 		ramasserObjet(joueur, carte);
-
+		this.entrerDansVehicule(joueur);
 	}
 
 	public static void combat(Personnage joueur, Monstre m) {
 		Random r = new Random();
 		if ((r.nextInt(1) + 1) > 2) {
-			System.out.println("le monstre vous attaque ! \n il vous reste ");
+
 			m.attaquer(joueur);
+			System.out
+					.println("le monstre vous attaque ! \n il vous reste " + joueur.getEnergie() + " point d'energie");
+		}
+		int cpt = 0;
+		while (m.estEnVie() && joueur.estEnVie()) {
+			if (cpt % 2 == 0) {
+				joueur.attaquer(m);
+				System.out.println("vous attaquer le monstre il lui rest " + (m.getEnergie()>0?m.getEnergie():0) + " points d'energie");
+			}
+			if (cpt % 2 == 1) {
+				m.attaquer(joueur);
+				System.out
+						.println("le monstre vous attaque ! \n il vous reste " + joueur.getEnergie() + " point d'energie");
+			}
+			cpt++;
+		}
+		joueur.getCel().supprimerPersonnage(m);
+		System.out.println((joueur.estEnVie()?"vous avez gagner !":"votre defaite est Honteuse !")+ " -->");
+		demanderString();
+	}
+
+	public void utiliserDruide(Personnage p, Druide d) {
+		int choix = 0;
+		System.out.println("Souhatez-vous utiliser le druide?\n\tOui: 1\n\tNon: 2");
+		do {
+			choix = demanderInt();
+		} while (choix != 1 && choix != 2);
+
+		if (choix == 1) {
+			if (d.paiementAccepte(p)) {
+				d.utiliser(p);
+			}
+		}
+		return;
+	}
+	
+	public void entrerDansVehicule(Personnage p) {
+		if(p.getCel().getVehicule().size() > 0) {
+			int cpt =0;
+			for(int i=0;i<p.getCel().getVehicule().size();i++) {
+				System.out.println("un vÃ©hicule de type "+p.getCel().getVehicule().get(i).getNom()+" est present sur la cellule voulez vous l'utiliser ? \n 1:\t Oui \t \t 2: \t Non");
+				int choixUtiliserVehicule = demanderInt();
+				if(choixUtiliserVehicule == 1) {
+					if(p.getVehicule() !=null) {
+					EnumVehicule vehiculeTmp = p.getVehicule();
+					p.getCel().getVehicule().add(vehiculeTmp);
+					}
+					p.setVehicule(p.getCel().getVehicule().get(i));
+					p.getCel().getVehicule().remove(i);
+					
+				}
+				cpt ++;
+			}
 		}
 	}
 
@@ -116,7 +172,7 @@ public class Manager {
 		return depla;
 	}
 
-	public void inventaire(Personnage j) {
+	public void inventaire(Personnage j, Carte c) {
 		boolean flag = false;
 		while (!flag) {
 			try {
@@ -133,7 +189,7 @@ public class Manager {
 				System.out.println("vous avez selectionnez: " + select.getNom() + "\n que voulez vous en faire");
 				if (select instanceof Arme) {
 					Arme o = (Arme) j.getInventaire().get(choix - 1);
-					System.out.println("1:\t Equiper \t \t  2:\t Jeter \n 3:\t Déséquiper \\t \\t  4:\t Annuler");
+					System.out.println("1:\t Equiper \t \t  2:\t Jeter \n 3:\t Dessequiper \t \t  4:\t Annuler");
 					String choix2 = demanderString();
 					switch (choix2) {
 					case "1":
@@ -141,7 +197,7 @@ public class Manager {
 							j.setArmeEquiper(o);
 							flag = true;
 						} else {
-							System.out.println("Cette arme est deja équiper");
+							System.out.println("Cette arme est deja ï¿½quiper");
 						}
 						break;
 					case "2":
@@ -161,12 +217,12 @@ public class Manager {
 					}
 				} else if (select instanceof Antidote) {
 					Potion o = (Antidote) j.getInventaire().get(choix - 1);
-					System.out.println("1:\t Utiliser \t \t  2:\t Jeter \n 3:\t Annuler");
+					System.out.println(" 1:\t Utiliser \t \t  2:\t Jeter \n 3:\t Annuler");
 					String choix2 = demanderString();
 					switch (choix2) {
 					case "1":
 						o.utiliser(j);
-						System.out.println("votre energie est maintenat à: " + j.getEnergie() + "/" + j.getMaxEnergie()
+						System.out.println("votre energie est maintenat ï¿½: " + j.getEnergie() + "/" + j.getMaxEnergie()
 								+ "\n et vous etes entierement guerri");
 						j.supprimerDeLInventaire(choix - 1);
 						flag = true;
@@ -191,12 +247,42 @@ public class Manager {
 					case "1":
 						o.utiliser(j);
 						System.out
-								.println("votre energie est maintenat à: " + j.getEnergie() + "/" + j.getMaxEnergie());
+								.println("votre energie est maintenat ï¿½: " + j.getEnergie() + "/" + j.getMaxEnergie());
 						j.supprimerDeLInventaire(choix - 1);
 						flag = true;
 						break;
 					case "2":
 						j.supprimerDeLInventaire(select);
+						ArrayList<Objet> l = j.getCel().getListObjet();
+						l.add(o);
+						j.getCel().setListObjet(l);
+						flag = true;
+						break;
+					case "3":
+						flag = true;
+						break;
+					default:
+						break;
+					}
+				}
+				else if (select instanceof Jumelle) {
+					Jumelle o = (Jumelle)select;
+					System.out.println("1:\t Utiliser \t \t  2:\t Jeter \n 3:\t Annuler");
+					String choix2 = demanderString();
+					switch (choix2) {
+					case "1":
+						o.utiliser(j);
+						System.out
+								.println("vous voyer maintenant plus loin");
+						c.displayCellGamer(j.getCel(), true);
+						System.out.println("Appuyer sur Entrer pour continuer");
+						demanderString();
+						j.setVisionAmeliorer(false);
+						flag = true;
+						break;
+					case "2":
+						j.supprimerDeLInventaire(select);
+						j.setVisionAmeliorer(false);
 						ArrayList<Objet> l = j.getCel().getListObjet();
 						l.add(o);
 						j.getCel().setListObjet(l);
@@ -266,7 +352,7 @@ public class Manager {
 
 	public int choixAction() {
 		System.out.println("Quel action voulez vous effectuer ? \n ");
-		System.out.println("1: \t Se déplacer ");
+		System.out.println("1: \t Se dï¿½placer ");
 		System.out.println("2: \t Inventaire");
 		System.out.println("3: \t regarder votre carte");
 		String choix = demanderString();

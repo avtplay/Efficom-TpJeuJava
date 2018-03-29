@@ -58,6 +58,10 @@ public abstract class Entite {
 		this.setEnergie( this.getEnergie()-minus);
 		return this.estEnVie() ;
 	}
+
+	public boolean estVivant() {
+		return getEnergie()>0;
+	}
 	
 	protected boolean ajouterEnergie (int plus) {
 		if(this.getEnergie() == this.getMaxEnergie() )

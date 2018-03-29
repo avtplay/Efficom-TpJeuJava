@@ -5,8 +5,8 @@ import Interface.Jouable;
 
 public class Jumelle extends Objet{
 
-	public Jumelle(String n, int p) {
-		super(n, p);
+	public Jumelle() {
+		super("Jumelle", 1);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -12,7 +12,9 @@ public class Monstre extends Entite implements Deplacable, Combattant{
 		this.setCel(c);
 		this.setTag(tag);
 		this.puissance = puissance;
+		this.setEnergie(250);
 	}
+	
 	@Override
 	public void recevoirDmg(int dmg) {
 		this.retirerEnergie(dmg);
@@ -28,6 +30,7 @@ public class Monstre extends Entite implements Deplacable, Combattant{
 		this.setCel(c);
 		return true;
 	}
+	
 
 	@Override
 	public void attaquer(Combattant a) {
@@ -36,6 +39,11 @@ public class Monstre extends Entite implements Deplacable, Combattant{
 	
 	public void soignerEtat(Combattant e) {
 		return;
+	}
+	@Override
+	public void modifierEtatSante(EnumEtatSante etatSante) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
