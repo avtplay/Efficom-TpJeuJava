@@ -18,11 +18,14 @@ public class Zone {
 		Random r = new Random();
 		this.startX = r.nextInt(tailleX - 0);
 		do {
+			r = new Random();
 		this.endX = this.startX + r.nextInt(tailleX - this.startX);
 		}while(this.endX == this.startX);
 		
 		this.startY = r.nextInt(tailleY);
 		do {
+			r = new Random();
+			System.out.println(tailleY - this.startY);
 			this.endY =this.startY + r.nextInt(tailleY - this.startY);
 		}while(this.endY == this.startY);
 		this.zoneId = idZone;
@@ -30,8 +33,8 @@ public class Zone {
 	
 	public boolean seChevauche(Zone z) {
 		
-		return (this.startX < z.startX && this.endX > z.startX) || (this.startY < z.startY && this.endY > z.startY)
-				|| (this.startX < z.endX && this.endX > z.endX) || (this.startY < z.endY && this.endY > z.endY);
+		return (this.startX <= z.startX && this.endX >= z.startX) || (this.startY <= z.startY && this.endY >= z.startY)
+				|| (this.startX <= z.endX && this.endX >= z.endX) || (this.startY <= z.endY && this.endY >= z.endY);
 
 	}
 	

@@ -40,6 +40,7 @@ public class Manager {
 				Monstre m = (Monstre) e;
 				System.out.println("vous avez rencontrer un monstre");
 				combat(joueur, m);
+				carte.getEntites().remove(e);
 			}
 			if (e instanceof Druide) {
 				Druide dr = (Druide) e;
@@ -202,6 +203,7 @@ public class Manager {
 						break;
 					case "2":
 						j.supprimerDeLInventaire(select);
+						j.desequiper();
 						ArrayList<Objet> l = j.getCel().getListObjet();
 						l.add(o);
 						j.getCel().setListObjet(l);
@@ -222,7 +224,7 @@ public class Manager {
 					switch (choix2) {
 					case "1":
 						o.utiliser(j);
-						System.out.println("votre energie est maintenat �: " + j.getEnergie() + "/" + j.getMaxEnergie()
+						System.out.println("votre energie est maintenat à: " + j.getEnergie() + "/" + j.getMaxEnergie()
 								+ "\n et vous etes entierement guerri");
 						j.supprimerDeLInventaire(choix - 1);
 						flag = true;
@@ -247,7 +249,7 @@ public class Manager {
 					case "1":
 						o.utiliser(j);
 						System.out
-								.println("votre energie est maintenat �: " + j.getEnergie() + "/" + j.getMaxEnergie());
+								.println("votre energie est maintenat à: " + j.getEnergie() + "/" + j.getMaxEnergie());
 						j.supprimerDeLInventaire(choix - 1);
 						flag = true;
 						break;
@@ -352,7 +354,7 @@ public class Manager {
 
 	public int choixAction() {
 		System.out.println("Quel action voulez vous effectuer ? \n ");
-		System.out.println("1: \t Se d�placer ");
+		System.out.println("1: \t Se déplacer ");
 		System.out.println("2: \t Inventaire");
 		System.out.println("3: \t regarder votre carte");
 		String choix = demanderString();

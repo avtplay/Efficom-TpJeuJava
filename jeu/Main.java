@@ -39,7 +39,7 @@ public class Main {
 		
 		carte.getEntites().add(mo);
 		Cellule objettest = carte.getCelluleViaCoordonne(new Coordinate(26, 25));
-		objettest.ajouterObjet(new Potion("postio", 1, 25));
+		objettest.ajouterObjet(new Potion("potion", 1, 25));
 		objettest.ajouterPersonnage(new Druide(objettest, "Druide", 0));
 		String[] paramJoueur = new String[] { nomJoueur, TagJoueur };
 		Personnage joueur = new Personnage(spawnJoueur, paramJoueur);

@@ -117,6 +117,14 @@ public class Carte {
         }
     }
 	
+	public void mettreAJourListe() {
+		for(int i =0; i<entites.size();i++) {
+			if(this.entites.get(i).getEnergie() == 0) {
+				this.entites.remove(i);
+				i--;
+			}
+		}
+	}
 	public void displayCellGamer(Cellule cellJ, boolean jumelle) {
         int vision = 1;
         
@@ -319,6 +327,7 @@ public class Carte {
 	}
 	
 	public void genererMonstreDeplacement() {
+		mettreAJourListe();
 		Deplacement  d;
 		for(int i = 0; i < this.getEntites().size(); i++) {
 			if(this.getEntites().get(i) instanceof Monstre) {
@@ -461,8 +470,8 @@ public class Carte {
 		ArrayList<Cellule> list = new ArrayList<Cellule>();
 		for (int i = c.getX() - 1; i <= c.getX() + 1; i++) {
 			for (int j = c.getY() - 1; j <= c.getY() + 1; j++) {
-				if (i >= 0 && j >= 0 && i < this.largeur && j <= this.longueur && !(i == c.getX() && j == c.getY())) {
-					list.add(this.cell[i][j]);
+				if (!(i == c.getX() && j == c.getY())) {
+					list.add(this.cell[i%this.largeur][j%this.longueur]);
 				}
 			}
 		}
