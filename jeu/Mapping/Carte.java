@@ -370,7 +370,11 @@ public class Carte {
 	}
 	
 	public void ajouterVehicule(Coordinate coord) {
-		this.cell[coord.getX()][coord.getY()].getVehicule().add(EnumVehicule.getVehiculeByMapZone(this.cell[coord.getX()][coord.getY()].mapZone));
+		this.cell[coord.getX()][coord.getY()].getVehicule().add(EnumVehicule.getVehiculeByMapZone(this.cell[coord.getX()][coord.getY()].mapZone.getId()));
+	}
+	
+	public void ajouterTeleporter(Coordinate coord) {
+		this.cell[coord.getX()][coord.getY()].getVehicule().add(EnumVehicule.getVehiculeByMapZone(5));
 	}
 	
 	private void ajouterJumelle(Coordinate coord) {

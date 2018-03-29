@@ -46,4 +46,10 @@ public class Monstre extends Entite implements Deplacable, Combattant{
 		
 	}
 
+	@Override
+	public boolean Teleporter(Cellule c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

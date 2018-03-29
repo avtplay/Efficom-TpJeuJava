@@ -33,13 +33,13 @@ public class Main {
 		Cellule spawnMonster =  carte.getCelluleViaCoordonne(new Coordinate(25, 26));
 		Monstre mo = new Monstre(spawnMonster,50,"M");
 		Jumelle a = new Jumelle( );
-		carte.ajouterVehicule(new Coordinate(24,24));
+		carte.ajouterTeleporter(new Coordinate(24,24));
 		carte.getCelluleViaCoordonne(new Coordinate(24, 25)).ajouterObjet(a);
 		spawnMonster.ajouterPersonnage(mo); 
 		
 		carte.getEntites().add(mo);
 		Cellule objettest = carte.getCelluleViaCoordonne(new Coordinate(26, 25));
-		objettest.ajouterObjet(new Potion("potion", 1, 25));
+		objettest.ajouterObjet(new Potion("potion de batard", 1, -25));
 		objettest.ajouterPersonnage(new Druide(objettest, "Druide", 0));
 		String[] paramJoueur = new String[] { nomJoueur, TagJoueur };
 		Personnage joueur = new Personnage(spawnJoueur, paramJoueur);
@@ -56,6 +56,7 @@ public class Main {
 			if(joueur.getCel().checkMonstre() != null) {
 				m.combat(joueur, joueur.getCel().checkMonstre());
 			}
+			joueur.setDort(false);
 			while (choix == 0) {
 				choix = m.choixAction();
 			}
@@ -79,6 +80,9 @@ public class Main {
 				System.out.println("carte");
 				m.afficherCarte(carte);
 				break;
+			case 4: 
+				joueur.recevoirHeal(50);
+				joueur.setDort(true);
 			}
 		}
 		System.out.println(!joueur.estEnVie()?"PERDU ! nooob ":"GAGNE ! GG ");

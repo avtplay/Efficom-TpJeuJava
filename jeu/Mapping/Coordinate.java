@@ -15,6 +15,10 @@ public class Coordinate {
 		this.x = x;
 		this.y = y;
 	}
+	public Coordinate(int[] tab) {
+		this.x = tab[0];
+		this.y = tab[1];
+	}
 	
 	public void generateCoordinate(int tailleX, int tailleY) {
 		Random r = new Random();

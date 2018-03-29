@@ -6,6 +6,7 @@ public enum EnumVehicule {
 	MOTO(50, "Moto", "BIK", 0, 10),
 	BATEAU(50, "Bateur", "BAT", 2, 10),
 	VOITURE(50, "Voiture", "VOI", 3, 10),
+	TELEPORTER(1, "Teleporter", "TEL", 5, 1),
 	JETSKI(50, "Jetski", "JET", 1, 10);
 	
 	private int carburant;
@@ -30,8 +31,8 @@ public enum EnumVehicule {
 		this.consomationCarburant = consomationCarburant;
 	}
 
-	public static EnumVehicule getVehiculeByMapZone(MapZone z) {
-		switch(z.getId()) {
+	public static EnumVehicule getVehiculeByMapZone(int i) {
+		switch(i) {
 		case 0:
 			return EnumVehicule.MOTO;
 			
@@ -40,6 +41,8 @@ public enum EnumVehicule {
 			
 		case 2:
 			return EnumVehicule.BATEAU;
+		case 5:
+			return EnumVehicule.TELEPORTER;
 			
 		default:
 			return EnumVehicule.VOITURE;

@@ -52,10 +52,30 @@ public class Manager {
 		//// objet
 		ramasserObjet(joueur, carte);
 		this.entrerDansVehicule(joueur);
+		if(estDansTeleporter(joueur)) {
+			int[] teleportXY = menuTeleporter(carte);
+			Cellule cellTeleport =carte.getCelluleViaCoordonne(new Coordinate(teleportXY));
+			joueur.deplacer(cellTeleport);
+		}
 	}
 
+	public int[] menuTeleporter(Carte c) {
+		
+		System.out.println("Sur quelles coordonnées voulez vous vous telerporter ? \n X: ");
+		int coordX = demanderInt();
+		System.out.println("Y:");
+		int coordY = demanderInt();
+		return new int[] {coordX%c.getLargeur(),coordY%c.getLongueur()};
+	}
+	public static boolean estDansTeleporter(Personnage p) {
+		return p.getVehicule() != null && p.getVehicule().getTag().equals("TEL");
+	}
 	public static void combat(Personnage joueur, Monstre m) {
 		Random r = new Random();
+		if(joueur.isDort()) {
+			joueur.setEnergie(0);
+			return;
+		}
 		if ((r.nextInt(1) + 1) > 2) {
 
 			m.attaquer(joueur);
@@ -354,9 +374,9 @@ public class Manager {
 
 	public int choixAction() {
 		System.out.println("Quel action voulez vous effectuer ? \n ");
-		System.out.println("1: \t Se déplacer ");
-		System.out.println("2: \t Inventaire");
-		System.out.println("3: \t regarder votre carte");
+		System.out.println("1: \t Se déplacer \t \t 2: \t Inventaire");
+		System.out.println("3: \t regarder votre carte \t \t 4:\t Dormir");
+		System.out.println("");
 		String choix = demanderString();
 		switch (choix) {
 		case "1":
@@ -365,6 +385,8 @@ public class Manager {
 			return 2;
 		case "3":
 			return 3;
+		case "4":
+			return 4;
 		default:
 			return 0;
 		}

@@ -25,7 +25,6 @@ public class Zone {
 		this.startY = r.nextInt(tailleY);
 		do {
 			r = new Random();
-			System.out.println(tailleY - this.startY);
 			this.endY =this.startY + r.nextInt(tailleY - this.startY);
 		}while(this.endY == this.startY);
 		this.zoneId = idZone;
